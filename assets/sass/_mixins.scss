@@ -1,0 +1,144 @@
+/* ============================================== */
+/* Mixins */
+/* ============================================== */
+
+	@mixin clearfix {
+		*zoom: 1;
+		&:before, &:after { content: ""; display: table; }
+		&:after {clear: both;}
+	}
+	
+	@mixin imgtxt {
+		display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; 
+	}
+	
+	@mixin hidden { 
+		display: none; visibility: hidden; 
+	}
+	
+	@mixin visuallyhidden {
+		border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; 
+		&.focusable:active,
+		&.focusable:focus { 
+			clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; 
+		}	
+	}
+	
+	@mixin invisible { 
+		visibility: hidden; 
+	}
+	
+	
+/* ============================================== */
+/* CSS Triangles Like Whoa! */
+/* ============================================== */
+
+	@mixin css-triangle($direction: "down",$size: 16px,$color: #000) {
+	
+		content: "";
+		width:0;
+		height:0;
+		border:$size solid transparent;
+		position:absolute;
+	
+		@if $direction == up {
+			border-bottom:$size solid $color;
+		}
+		@if $direction == down {
+			border-top:$size solid $color;
+		}
+		@if $direction == right {
+			border-left:$size solid $color;
+		}
+		@if $direction == left {
+			border-right:$size solid $color;
+		}
+	
+	}
+	
+	
+/* ---------------------------------------------------------------------- */
+/*! MEDIA QUERIES
+/* ---------------------------------------------------------------------- */
+	
+	/* Breakpoints */
+	$break_handheldSmall: 400px;
+	$break_handheld: 560px;
+	$break_tabletPortrait: 768px;
+	$break_tabletLandscape: 1024px;
+	$break_desktop: 1200px;
+	
+	@mixin respond($breakpoint, $operator: "and below") {
+		
+		@if $breakpoint == "handheldSmall" 
+		{
+			@if $operator == "only" or $operator == "and below" { 
+				@media (max-width: $break_handheldSmall) { @content; }
+			}
+			@else if $operator == "and above" {
+				@media (min-width: $break_handheldSmall) { @content; }
+			}
+		}
+		@else if $breakpoint == "handheld" 
+		{
+			@if $operator == "only" { 
+				@media (min-width: $break_handheldSmall + 1) and (max-width: $break_handheld) { @content; }
+			}
+			@else if $operator == "and above" {
+				@media (min-width: $break_handheldSmall + 1) { @content; }
+			}
+			@else if $operator == "and below" {
+				@media (max-width: $break_handheld) { @content; }
+			}
+		}
+		@else if $breakpoint == "tabletPortrait" 
+		{
+			@if $operator == "only" { 
+				@media (min-width: $break_handheld + 1) and (max-width: $break_tabletPortrait) { @content; }
+			}
+			@else if $operator == "and above" {
+				@media (min-width: $break_handheld + 1) { @content; }
+			}
+			@else if $operator == "and below" {
+				@media (max-width: $break_tabletPortrait) { @content; }
+			}
+		}
+		@else if $breakpoint == "tabletLandscape" 
+		{
+			@if $operator == "only" { 
+				@media (min-width: $break_tabletPortrait + 1) and (max-width: $break_tabletLandscape) { @content; }
+			}
+			@else if $operator == "and above" {
+				@media (min-width: $break_tabletPortrait + 1) { @content; }
+			}
+			@else if $operator == "and below" {
+				@media (max-width: $break_tabletLandscape) { @content; }
+			}
+		}
+		@else if $breakpoint == "desktop" 
+		{
+			@if $operator == "only" { 
+				@media (min-width: $break_tabletLandscape + 1) and (max-width: $break_desktop) { @content; }
+			}
+			@else if $operator == "and above" {
+				@media (min-width: $break_tabletLandscape + 1) { @content; }
+			}
+			@else if $operator == "and below" {
+				@media (max-width: $break_desktop) { @content; }
+			}
+		}
+		@else if $breakpoint == "desktopWide" 
+		{
+			@media (min-width: $break_desktop + 1) { @content; }
+		}
+		@else 
+		{
+			@if $operator == "min-width" {
+				@media (min-width: $breakpoint) { @content; }
+			}
+			@else if $operator == "only" or $operator == "max-width" {
+				@media (max-width: $breakpoint) { @content; }
+			}
+		}
+		
+	}	
