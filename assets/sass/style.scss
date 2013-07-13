@@ -3,11 +3,18 @@
 /* ============================================== */   
 
 	// Fonts
-	$font_primary: 'Source Sans Pro', sans-serif;
-	
+	$font_headers: 'Droid Serif', Georgia, serif;
+	$font_copy: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	
 	// Colors
-	$color_green: #89bb00;
+	$color_dark_blue: #191d24;
+	$color_light_blue: #477fc8;
+	$color_teal: #4aa17f;
+	$color_red: #ec0522;
+	$copy_color: #687c96;
+	$copy_color_onwhite: #60738a;
+	$rule_color_light: #e8e8e9;
+	$rule_color_dark: #252f3f;
 	
 	// Turn On Browser Supports
 	$experimental-support-for-mozilla : true !default;
@@ -29,36 +36,318 @@
 	@import 'mixins';
 	@import 'normalize';
 	@import 'foundation.grid';
+	@import 'fontello';
 	
 	
 /* ============================================== */
-/* Elements */
+/* Typography */
 /* ============================================== */
-
-
-	html {
-
-	}
-
+	
 	h1,h2,h3,h4,h5,h6 {
 		margin: 0;
-		padding: 0;
-		font-weight: 600;
+		padding:  0;
+		font: {
+			family: $font_headers;
+		}
+		color: #fff;
+	}
+	
+	h1 {
+		margin-top: 30px;
+		margin-bottom: 15px;
+		font: {
+			size: 48px;
+		}
+		line-height: 120%;
+		@include respond("handheld") {
+			font: {
+				size: 32px;
+			}
+		}
+	}
+	
+	h2 {
+		margin-bottom: 15px;
+		font: {
+			size: 32px;
+		}
+		.block {
+			position: relative;
+			display: inline-block;
+			top: -3px;
+			margin-right: 10px;
+			width: 50px;
+			height: 40px;
+			padding-top: 8px;
+			background: $color_light_blue;
+			@include border-radius(3px);
+			font: {
+				family: $font_copy;
+				weight: bold;
+				size: 22px;
+			}
+			text: {
+				align: center;
+			}
+			line-height: 120%;
+			&.blue {
+				background: $color_light_blue;
+			}
+			&.teal {
+				background: $color_teal;
+			}
+			&.red {
+				background: $color_red;
+				font: {
+					size: 20px;
+					weight: normal;
+				}
+			}
+		}
 	}
 	
 	p {
-		margin: 0 0 1em 0;
-		padding: 0;
+		margin: 0 0 15px 0;
+		line-height: 185%;
+		font: {
+			size: 16px;
+		}
+		&.lead {
+			margin-bottom: 50px;
+			font: {
+				size: 24px;
+			}
+			line-height: 175%;
+			@include respond("handheld") {
+				font: {
+					size: 120%;
+				}
+			}
+			strong {
+				color: #477fc8;
+				font: {
+					weight: bold;
+				}
+			}
+			em {
+				color: $color_teal;
+				font: {
+					style: normal;
+				}
+			}
+		}
 	}
 	
 	a {
-
+		@include transition(all 300ms ease-in);
 	}
 	
+/* ============================================== */
+/* Layout */
+/* ============================================== */
+
+	html {
+		background: $color_dark_blue;
+		font: {
+			family: $font_copy;
+		}
+	}
 	
-/* ============================================== */
-/* IE Sucks */
-/* ============================================== */
+	body {
+		max-width: 900px;
+	}
+	
+	#logo {
+		display: inline-block;
+		width: 100%;
+		max-width: 170px;
+		margin-bottom: 50px;
+		img {
+			width: 100%;
+			height: auto;
+		}
+		@include respond("handheld") {
+			margin-top: 20px;
+		}
+	}
+
+	header {
+		position: absolute;
+		background: #fff;
+		width: 25%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		padding: 35px;
+		font: {
+			size: 14px;
+		}
+		text: {
+			align: center;
+		}
+		color: $copy_color_onwhite;
+		
+		@include respond("tabletPortrait") {
+			width: 33.333333%;
+		}
+		@include respond("handheld") {
+			display: none;
+			position: absolute;
+			top: 0;
+			height: auto;
+			width: 100%;
+			left: -100%;
+			z-index: 2;
+		}
+		
+		a {
+			color: darken($color_teal,5%);
+		}
+		
+		aside {
+			padding: 25px 0;
+			margin-bottom: 25px;
+			line-height: 200%;
+			border-bottom: 1px solid $rule_color_light;
+		}
+		
+		.beheaded-folk {
+			li {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				margin: 0 2px;
+				@include border-radius(50px);
+			}
+			img {
+				width: 50px;
+				height: 50px;
+				@include border-radius(50px);
+			}
+		}
+	}
+	
+	#hamburgers {
+		display: none;
+		position: fixed;
+		left: 50px;
+		margin-left: -50px;
+		padding: 10px 20px;
+		color: #fff;
+		z-index: 3;
+		width: 100%;
+		background: darken($color_dark_blue,5%);
+		font: {
+			size: 24px;
+			weight: normal;
+		}
+		text: {
+			align: right;
+			decoration: none;
+		}
+		line-height: 100%;
+		&.whiteout {
+			background: #fff;
+			border-bottom: none;
+			color: $color_light_blue;
+		}
+		@include respond("handheld") {
+			display: block;
+		}
+	}
+	
+	nav {
+		margin-bottom: 25px;
+		border-top: 1px solid $rule_color_light;
+		li {
+			border-bottom: 1px solid $rule_color_light;
+		}
+		a {
+			display: block;
+			padding: 20px 0;
+			font: {
+				weight: bold;
+			}
+			text: {
+				transform: uppercase;
+				decoration: none;
+			}
+			color: #191d24;
+			&:hover {
+				background: #f9f9f9;
+				color: $color_light_blue;
+			}
+			&:active {
+				color: $color_red;
+			}
+		}
+	}
 
 
-	@import 'ie';
+	#page {
+		position: absolute;
+		background: $color_dark_blue;
+		width: 75%;
+		max-width: 1000px;
+		height: auto;
+		top: 0;
+		left: 25%;
+		padding: 50px;
+		color: $copy_color;
+		@include respond("tabletPortrait") {
+			width: 66.66666666%;
+			left: 33.33333333%;
+		}
+		@include respond("handheld") {
+			width: 100%;
+			left: 0;
+			padding: 50px 20px;
+		}
+	}
+	
+	#mobile-nav {
+		display: block;
+	}
+	
+	.ornaments {
+		position: relative;
+		margin: 40px 0 30px 0;
+		border: none;
+		border-top: 1px solid $rule_color_dark;
+		text-align: center;
+		
+		&:after {
+			content: " ";
+			position: absolute;
+			top: -15px;
+			left: 50%;
+			height: 30px;
+			width: 120px;
+			margin-left: -60px;
+			background: $color_dark_blue;
+		}
+		.ornament {
+			position: relative;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			margin: 0 5px;
+			z-index: 1;
+			top: -10px;
+			@include border-radius(2px);
+			@include rotate(45deg);
+			border: 1px solid $rule_color_dark;
+		}
+	}
+	
+	footer {
+		margin-top: 100px;
+		p {
+			text-align: right;
+			font: {
+				size: 14px;
+			}
+			color: darken($copy_color,25%);	
+		}
+	}
+	
