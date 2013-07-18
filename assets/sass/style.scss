@@ -15,6 +15,7 @@
 	$copy_color_onwhite: #60738a;
 	$rule_color_light: #e8e8e9;
 	$rule_color_dark: #252f3f;
+	$nav_active_background: #f6f6f6;
 	
 	// Turn On Browser Supports
 	$experimental-support-for-mozilla : true !default;
@@ -53,7 +54,7 @@
 	}
 	
 	h1 {
-		margin-top: 30px;
+		margin-top: 15px;
 		margin-bottom: 15px;
 		font: {
 			size: 48px;
@@ -142,6 +143,32 @@
 		@include transition(all 300ms ease-in);
 	}
 	
+	.button {
+		display: block;
+		padding: 15px 25px;
+		margin-bottom: 100px;
+		max-width: 350px;
+		background: $color_teal;
+		@include background(linear-gradient(lighten($color_teal,10%) $color_teal));
+		color: #fff;
+		font: {
+			size: 22px;
+		}
+		text: {
+			shadow: 0 1px 1px darken($color_teal,25%);
+			transform: none;
+		}
+		border: none;
+		border-bottom: 0;
+		text-align: center;
+		@include border-radius(3px);
+		&:hover {
+			background: lighten($color_teal,10%);
+			@include background(linear-gradient(lighten($color_teal,20%) $color_teal));
+			color: #fff;
+		}
+	}
+	
 /* ============================================== */
 /* Layout */
 /* ============================================== */
@@ -166,19 +193,40 @@
 			width: 100%;
 			height: auto;
 		}
+		@include transition(all 250ms ease-in);
 		@include respond("handheld") {
-			margin-top: 20px;
+			display: none;
+		}
+		&:hover {
+
+		}
+	}
+
+	#sidebar {
+		position: fixed;
+		width: 30%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		background: #fff;
+		@include respond("tabletPortrait") {
+			width: 33.333333%;
+		}
+		@include respond("handheld") {
+			position: fixed;
+			width: 100%;
+			left: -100%;
+			z-index: 2;
 		}
 	}
 
 	header {
 		position: absolute;
-		background: #fff;
-		width: 25%;
-		height: 100%;
+		width: 30%;
+		height: auto;
 		top: 0;
 		left: 0;
-		padding: 35px;
+		padding: 35px 35px 50px 35px;
 		font: {
 			size: 14px;
 		}
@@ -196,8 +244,8 @@
 			top: 0;
 			height: auto;
 			width: 100%;
-			left: -100%;
 			z-index: 2;
+			background: #fff;
 		}
 		
 		a {
@@ -214,15 +262,15 @@
 		.beheaded-folk {
 			li {
 				display: inline-block;
-				width: 50px;
-				height: 50px;
+				width: 75px;
+				height: 75px;
 				margin: 0 2px;
-				@include border-radius(50px);
+				@include border-radius(100px);
 			}
 			img {
-				width: 50px;
-				height: 50px;
-				@include border-radius(50px);
+				width: 75px;
+				height: 75px;
+				@include border-radius(75px);
 			}
 		}
 	}
@@ -232,18 +280,19 @@
 		position: fixed;
 		left: 50px;
 		margin-left: -50px;
-		padding: 10px 20px;
-		color: #fff;
-		z-index: 3;
+		padding: 8px 20px 10px 20px;
+		color: $color_light_blue;
 		width: 100%;
-		background: darken($color_dark_blue,5%);
+		background: #fff;
+		z-index: 3;
 		font: {
-			size: 24px;
+			size: 16px;
 			weight: normal;
 		}
 		text: {
-			align: right;
+			align: left;
 			decoration: none;
+			transform: uppercase;
 		}
 		line-height: 100%;
 		&.whiteout {
@@ -251,16 +300,55 @@
 			border-bottom: none;
 			color: $color_light_blue;
 		}
+		@include transition(none);
+		@include box-shadow(0 5px 5px rgba(#000,.2));
 		@include respond("handheld") {
 			display: block;
+		}
+		.name {
+			display: inline-block;
+			height: 24px;
+			padding-top: 4px;
+			color: #191d24;
+		}
+		.small-logo {
+			position: relative;
+			top: 5px;
+			display: inline-block;
+			width: 22px;
+			height: 22px;
+			margin-right: 10px;
+		}
+		.icon-menu {
+			float: right;
+			margin-top: 2px;
+			font: {
+				size: 24px;
+				weight: normal;
+			}
 		}
 	}
 	
 	nav {
 		margin-bottom: 25px;
 		border-top: 1px solid $rule_color_light;
+		@include respond("handheld") {
+			margin-top: 40px;
+		}
 		li {
 			border-bottom: 1px solid $rule_color_light;
+			&.active {
+				a {
+					background: $nav_active_background;
+					color: $color_light_blue;
+				}
+			}
+			&#home {
+				display: none;
+				@include respond("handheld") {
+					display: block;
+				}
+			}
 		}
 		a {
 			display: block;
@@ -274,7 +362,7 @@
 			}
 			color: #191d24;
 			&:hover {
-				background: #f9f9f9;
+				background: $nav_active_background;
 				color: $color_light_blue;
 			}
 			&:active {
@@ -287,12 +375,12 @@
 	#page {
 		position: absolute;
 		background: $color_dark_blue;
-		width: 75%;
+		width: 70%;
 		max-width: 1000px;
 		height: auto;
 		top: 0;
-		left: 25%;
-		padding: 50px;
+		left: 30%;
+		padding: 50px 50px 25px 50px;
 		color: $copy_color;
 		@include respond("tabletPortrait") {
 			width: 66.66666666%;
@@ -301,14 +389,134 @@
 		@include respond("handheld") {
 			width: 100%;
 			left: 0;
-			padding: 50px 20px;
+			padding: 75px 20px;
 		}
 	}
 	
-	#mobile-nav {
-		display: block;
+	footer {
+		margin-top: 50px;
+		p {
+			text-align: left;
+			font: {
+				size: 12px;
+			}
+			color: darken($copy_color,25%);	
+			&:after {
+				content: "";
+				width: 100px;
+				height: 10px;
+				position: relative;
+				border-top: 1px solid red;
+			}
+		}
 	}
 	
+	.content {
+		a {
+			border-bottom: 1px dotted darken($color_teal,25%);
+			text: {
+				decoration: none;
+			}
+			color: $color_teal;
+			&:hover {
+				color: lighten($color_teal,15%);
+			}
+		}
+		ul.line-list {
+			margin: 10px 0 50px 0;
+			li {
+				padding: 10px 0;
+				border-bottom: 1px dotted $rule_color_dark;
+				line-height: 150%;
+			}
+		}
+		ul.bullets {
+			margin: 10px 0 50px 20px;
+			list-style-type: disc;
+			li {
+				padding: 2px 0;
+				line-height: 150%;
+				> ul {
+					margin-left: 15px;
+					margin-bottom: 20px;
+					list-style-type: circle;
+				}
+			}
+		}
+		a.button {
+			color: #fff;
+			border-bottom: none;
+		}
+		&.resume {
+			h1 {
+				position: relative;
+				a {
+					position: absolute;
+					display: inline-block;
+					top: 5px;
+					right: 0;
+					margin: 0;
+					font: {
+						family: $font_copy;
+						weight: normal;
+						size: 16px;
+					}
+					line-height: 125%;
+					padding: 10px 20px;
+					@include respond("tabletPortrait") {
+						position: relative;
+						top: -15px;
+						right: auto;
+					}
+					@include respond("handheld") {
+						position: absolute;
+						top: -5px;
+						right: 0;
+						padding: 8px 10px;
+						font: {
+							size: 14px;
+						}
+					}
+				}
+			}
+			h2 {
+				font: {
+					family: $font_copy;
+					size: 22px;
+				}
+				text: {
+					transform: uppercase;
+				}
+				color: $color_light_blue;
+			}
+			h3 {
+				span {
+					display: block;
+					padding: 5px 0 0 0;
+					font: {
+						family: $font_copy;
+						size: 16px;
+						weight: normal;
+					}
+				}
+			}
+			h4 {
+				margin-top: 10px;
+			}
+			.ornaments {
+				margin: 10px 0 10px 0;
+			}
+			ul.line-list > li {
+				padding: 2px 0;
+				word-break: break-word;
+			}
+		}
+	}
+	
+/* ============================================== */
+/* Components */
+/* ============================================== */
+
 	.ornaments {
 		position: relative;
 		margin: 40px 0 30px 0;
@@ -340,14 +548,151 @@
 		}
 	}
 	
-	footer {
-		margin-top: 100px;
-		p {
-			text-align: right;
-			font: {
-				size: 14px;
+/* ============================================== */
+/* Portfolio */
+/* ============================================== */
+	
+	#portfolio {
+		@include clearfix;
+		margin: 0 0 0 1px; padding: 0;
+		li {
+			float: left;
+			position: relative;
+			margin: 0 1px 1px 0;
+			width: 33%;
+			height: auto;
+			line-height: 0;
+			overflow: hidden;
+			cursor: pointer;
+			&:hover {
+				position: relative;
+				z-index: 10;
+				@include box-shadow(0 0 100px $color_dark_blue);
+				.overlay {
+					@include box-shadow(none);
+				}
+				img {
+					@include opacity(1);
+				}
+				.text {
+					display: block;
+					@include opacity(1);
+				}
 			}
-			color: darken($copy_color,25%);	
+			@include respond("handheld") {
+				width: 50%;
+				margin: 0;
+				padding: 0 1px 1px 0;
+			}
+		}
+		img {
+			width: 100%;
+			max-width: auto;
+			height: auto;
+			@include opacity(.5);
+			@include transition(all 200ms ease-in);
+			@include respond("handheld") {
+				@include opacity(1);
+			}
+		}
+		.overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			@include box-shadow(inset 0 0 200px $color_dark_blue);
+			@include transition(all 200ms ease-in);
+		}
+		.text {
+			display: none;
+			position: absolute;
+			bottom: 0;
+			padding: 15px;
+			width: 100%;
+			background: rgba($color_dark_blue,.9);
+			border-bottom: 3px solid $color_red;
+			line-height: 120%;
+			color: #fff;
+			@include opacity(0);
+		}
+		h3 {
+			font: {	
+				family: $font_copy;
+				size: 16px;
+			}
+			text: {
+				transform: uppercase;
+			}
+			margin-bottom: 10px;
 		}
 	}
 	
+	.portfolio-piece {
+		display: none;
+		h1 {
+			margin-top: 0;
+			font: {
+				size: 32px;
+			}
+		}
+		h2 {
+			margin-bottom: 50px;
+			font: {
+				family: $font_copy;
+				size: 20px;
+				weight: normal;
+			}
+			line-height: 160%;
+			color: $copy_color;
+		}
+		h3 {
+			margin-bottom: 15px;
+		}
+		p {
+			margin: 15px 0;
+			line-height: 150%;
+			@include respond("tabletPortrait") {
+				margin-bottom: 25px;
+			}
+		}
+		img {
+			border: 5px solid #fff;
+			margin-bottom: 20px;
+		}
+		.portfolio-back {
+			display: inline-block;
+			margin-bottom: 25px;
+		}
+		.ornaments {
+			margin-top: 25px;
+		}
+		strong {
+			color: $color_light_blue;
+		}
+	}
+	
+	.codefolio {
+		margin-top: 50px;
+		padding: 25px 25px 10px 25px;
+		background: lighten($color_dark_blue,5%);
+		p {
+			margin-top: 10px;
+			line-height: 150%;
+		}
+	}
+	
+/* ============================================== */
+/* Touch Devices */
+/* ============================================== */
+
+	.touch {
+		#portfolio {
+			img {
+				@include opacity(.8);
+			}
+			.overlay {
+				@include box-shadow(inset 0 0 100px $color_dark_blue);
+			}
+		}
+	}
