@@ -358,9 +358,9 @@ footer p:after { content: ""; width: 100px; height: 10px; position: relative; bo
 .content ul.bullets li > ul { margin-left: 15px; margin-bottom: 20px; list-style-type: circle; }
 .content a.button { color: #fff; border-bottom: none; }
 .content.resume h1 { position: relative; }
-.content.resume h1 a { position: absolute; display: inline-block; top: 5px; right: 0; margin: 0; font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: normal; font-size: 16px; line-height: 125%; padding: 10px 20px; }
-@media (max-width: 768px) { .content.resume h1 a { position: relative; top: -15px; right: auto; } }
-@media (max-width: 560px) { .content.resume h1 a { position: absolute; top: -5px; right: 0; padding: 8px 10px; font-size: 14px; } }
+.content.resume h1 .button { position: absolute; display: inline-block; top: 5px; right: 0; margin: 0; font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: normal; font-size: 16px; line-height: 125%; padding: 10px 20px; }
+@media (max-width: 768px) { .content.resume h1 .button { position: static; display: block; background: none; color: #4aa17f; padding: 0 0 5px 0; margin: 5px 0 20px 0; max-width: 100%; text-align: left; border-bottom: 1px dotted #224a3a; }
+  .content.resume h1 .button:hover { color: #77c0a4; } }
 .content.resume h2 { font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 22px; text-transform: uppercase; color: #477fc8; }
 .content.resume h3 span { display: block; padding: 5px 0 0 0; font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; }
 .content.resume h4 { margin-top: 10px; }

@@ -450,7 +450,7 @@
 		&.resume {
 			h1 {
 				position: relative;
-				a {
+				.button {
 					position: absolute;
 					display: inline-block;
 					top: 5px;
@@ -464,17 +464,19 @@
 					line-height: 125%;
 					padding: 10px 20px;
 					@include respond("tabletPortrait") {
-						position: relative;
-						top: -15px;
-						right: auto;
-					}
-					@include respond("handheld") {
-						position: absolute;
-						top: -5px;
-						right: 0;
-						padding: 8px 10px;
-						font: {
-							size: 14px;
+						position: static;
+						display: block;
+						background: none;
+						color: $color_teal;
+						padding: 0 0 5px 0;
+						margin: 5px 0 20px 0;
+						max-width: 100%;
+						text: {
+							align: left;
+						}
+						border-bottom: 1px dotted darken($color_teal,25%);
+						&:hover {
+							color: lighten($color_teal,15%);
 						}
 					}
 				}
